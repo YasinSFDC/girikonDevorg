@@ -1,0 +1,35 @@
+<template>
+    <lightning-card title="Display the Account details accordingly" icon-name="custom:custom76">
+        <div class="slds slds-p-horizontal--medium">
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_4-of-12 slds-m-bottom--medium">
+
+                    <lightning-input type="text" label="Enter Account Name" onchange={handleAccountName}>
+                    </lightning-input>
+                </div>
+                <div class="slds-col slds-size_6-of-12 slds-m-top--medium" style="margin-top: 24px; margin-left: 10px;">
+
+                    <lightning-button label="Search Account" variant="brand" onclick={handleSearch} icon-name="utility:search" icon-position="right">
+                    </lightning-button>
+                </div>
+            </div>
+
+            <h2 class="slds-m-bottom--x-small" style="color:rgba(1, 118, 211, 1); size: 20px; font-weight:bold;">Displaying Account
+                Record</h2>
+            <template if:true={searchData}>
+                <lightning-datatable data={searchData} columns={columns} key-field="id" hide-checkbox-column="true">
+                </lightning-datatable>
+            </template>
+
+
+            <div if:true={errorMsg}>
+                <h2 class="yErrorMsg">{errorMsg}</h2>
+            </div>
+
+        </div>
+
+        <br /><br />
+
+
+    </lightning-card>
+</template>

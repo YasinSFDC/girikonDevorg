@@ -1,0 +1,153 @@
+<!-- Class: employeeInfoHelper -->
+<template>
+    <lightning-card title="Employee details" icon-name="custom:custom64">
+        <lightning-progress-indicator current-step={currentStep} variant="base" type="path">
+            <lightning-progress-step label="Employee Info" value="1" onclick={handleOnStepClick}>
+            </lightning-progress-step>
+            <lightning-progress-step label="Educational Info" value="2" onclick={handleOnStepClick}>
+            </lightning-progress-step>
+            <lightning-progress-step label="Company Info" value="3" onclick={handleOnStepClick}>
+            </lightning-progress-step>
+        </lightning-progress-indicator>
+
+        <!-- employee Info start -->
+        <template if:true={isStepOne}>
+            <div>
+                <!-- employee Info -->
+                <lightning-card title="Employee Informations" icon-name="custom:custom84" style="color:rgb(6, 110, 6);">
+
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-p-horizontal--small slds-col slds-size_6-of-12 slds-m-bottom--medium">
+                            <div class="slds-form-element">
+                                <lightning-input type="text" label="Employee Name" placeholder="type here..."
+                                    required="" onchange={onhandlechange} value={employeeName}></lightning-input>
+                            </div>
+                        </div>
+                        <div class="slds-p-horizontal--small slds-col slds-size_6-of-12 slds-m-bottom--medium">
+                            <div class="slds-form-element">
+                                <lightning-input type="phone" label="Employee Phone" placeholder="type here..."
+                                    onchange={onhandlechange} value={employeePhone}></lightning-input>
+                            </div>
+                        </div>
+                        <div class="slds-p-horizontal--small slds-col slds-size_6-of-12 slds-m-bottom--medium">
+                            <div class="slds-form-element">
+                                <lightning-input type="email" label="Employee Email Id" placeholder="type here..."
+                                    onchange={onhandlechange} value={employeeEmail}></lightning-input>
+                            </div>
+                        </div>
+                    </div>
+                </lightning-card>
+                <!-- employee info -->
+            </div>
+        </template>
+        <!-- employee info end -->
+
+        <!-- Educational Info Start-->
+        <template if:true={isStepTwo}>
+            <div>
+                <!-- Educational Info -->
+                <lightning-card title="Educational Informations" icon-name="custom:custom87" style="color:rgb(6, 110, 6);">
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-p-horizontal--small slds-col slds-size_6-of-12 slds-m-bottom--medium">
+                            <div class="slds-form-element">
+                                <lightning-input type="text" label="Colleage Name" placeholder="type here..."
+                                    required="" onchange={onhandlechange} value={colleageName}></lightning-input>
+                            </div>
+                        </div>
+
+                        <div class="slds-p-horizontal--small slds-col slds-size_6-of-12 slds-m-bottom--medium">
+                            <div class="slds-form-element">
+                                <lightning-input type="text" label="University Name" placeholder="type here..."
+                                    onchange={onhandlechange} value={universityName}></lightning-input>
+                            </div>
+                        </div>
+
+                        <div class="slds-p-horizontal--small slds-col slds-size_6-of-12 slds-m-bottom--medium">
+                            <div class="slds-form-element">
+                                <lightning-input type="text" label="Degree" placeholder="type here..."
+                                    onchange={onhandlechange} value={degree}></lightning-input>
+                            </div>
+                        </div>
+
+                    </div>
+                </lightning-card>
+                <!-- Educational Info -->
+            </div>
+        </template>
+        <!-- Educational Info End -->
+
+
+        <!-- company Info start -->
+        <template if:true={isStepThree}>
+            <div>
+                <!-- company Info -->
+                <lightning-card title="Company Informations" icon-name="custom:custom77" style="color:rgb(6, 110, 6);">
+                    <template for:each={itemList} for:item="item" for:index="index">
+                        <lightning-record-edit-form key={item.id} object-api-name="Contact">
+                            <lightning-messages> </lightning-messages>
+                            <lightning-layout multiple-rows>
+
+                                <lightning-layout-item padding="around-small">
+                                    <lightning-input type="text" label="Company Name"  placeholder="type here..."
+                                        onchange={onhandlechange} access-key={item.id}></lightning-input>
+                                </lightning-layout-item>
+
+                                <lightning-layout-item padding="around-small">
+                                    <lightning-input type="text" label="Designation" placeholder="type here..."
+                                        onchange={onhandlechange} access-key={item.id}></lightning-input>
+                                </lightning-layout-item>
+
+                                <lightning-layout-item padding="around-small">
+                                    <lightning-input type="date" label="Joining Date" placeholder="type here..."
+                                        onchange={onhandlechange} access-key={item.id}></lightning-input>
+                                </lightning-layout-item>
+
+                                <lightning-layout-item padding="around-small">
+                                    <lightning-input type="date" label="Release Date" placeholder="type here..."
+                                        onchange={onhandlechange} access-key={item.id}></lightning-input>
+                                </lightning-layout-item>
+
+                                <lightning-layout-item size="12" small-device-size="6" medium-device-size="4"
+                                    large-device-size="2" padding="around-small">
+                                    <div class="slds-p-top_medium">
+
+                                        <lightning-icon icon-name="action:new" access-key={item.id} id={index}
+                                            alternative-text="Add Row" value={item} size="small" title="Add Row" onclick={addRow}>
+                                        </lightning-icon>
+                                        &nbsp; &nbsp;
+                                        <lightning-icon icon-name="action:delete" access-key={item.id} id={index}
+                                            alternative-text="Delete Row" size="small" title="Delete Row"
+                                            onclick={removeRow}>
+                                        </lightning-icon>
+
+                                    </div>
+                                </lightning-layout-item>
+                            </lightning-layout>
+
+                        </lightning-record-edit-form>
+                    </template>
+                    <br>
+                </lightning-card>
+                <!-- company Info -->
+            </div>
+        </template>
+        <!-- company Info end -->
+        <br>
+
+        <div class="slds-align_absolute-center">
+            <template if:true={isEnablePrev}>
+                <lightning-button variant="destructive-text" label="Back" onclick={handlePrev} class="yCus-right">
+                </lightning-button>
+            </template>
+
+            <template if:true={isEnableNext}>
+                <lightning-button label="Next" variant="brand" onclick={handleNext} class="yCus-next">
+                </lightning-button>
+            </template>
+            <template if:true={isEnableFinish}>
+                <lightning-button label="Finish" variant="brand" onclick={handleFinish}></lightning-button>
+            </template>
+        </div>
+
+    </lightning-card>
+</template>

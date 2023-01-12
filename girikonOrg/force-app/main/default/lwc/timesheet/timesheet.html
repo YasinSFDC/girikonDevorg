@@ -1,0 +1,53 @@
+<template>
+    
+    <lightning-card title="Employee Timesheet" icon-name="custom:custom65" style="color:rgb(6, 59, 158);">
+        <!-- <lightning-button-icon icon-name="action:new" variant="brand" alternative-text="Delete" class="slds-m-left_xx-small slds-float_right
+                                            slds-p-right_small slds-m-top_large"
+            title="Delete"></lightning-button-icon> -->
+        <div class="slds-p-bottom_large slds-p-left_large">
+            <lightning-record-edit-form object-api-name={ObjectApiName} onsuccess={handleEmpDetailsCreated}>
+                <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+                    <div class="slds-size_2-of-6">
+                        <lightning-input-field field-name={timesheetCategory}> </lightning-input-field>
+                    </div>
+                    <div class="slds-size_2-of-6">
+                        <lightning-input-field field-name={employeeName}> </lightning-input-field>
+                    </div>
+                    <div class="slds-size_2-of-6">
+                        <lightning-input-field field-name={projectName}> </lightning-input-field>
+                    </div>
+                    <div class="slds-size_2-of-6">
+                        <lightning-input-field field-name={loginDate}></lightning-input-field>
+                    </div>
+                    <div class="slds-size_2-of-6">
+                        <lightning-input-field field-name={task}>
+                        </lightning-input-field>
+                    </div>
+                    <div class="slds-size_2-of-6">
+                        <lightning-input-field field-name={loghours}></lightning-input-field>
+                    </div>
+
+                </div>
+                <lightning-button variant="brand" type="submit" label="Submit"></lightning-button>
+                <div class="slds-float_right slds-p-right_small">
+                    <lightning-button label="View Timesheet" slot="actions" onclick={fetchSheet}></lightning-button>
+                </div>
+            </lightning-record-edit-form>
+        </div>
+    </lightning-card>
+            <br><br>
+    <lightning-card title="Timesheet History">
+        <!-- <h3 style="color:rgb(235, 3, 3); font-size: 18px; font-weight: 600; padding-left: 14px; ">Total Login Hours: </h3> -->
+        <br>
+        <div style="height: 300px;">
+            <template if:true={tSheetList}>
+                <lightning-datatable data={tSheetList} columns={columns} key-field="Id" hide-checkbox-column="true"
+                    show-row-number-column="true">
+                </lightning-datatable>
+            </template>
+            <template if:true={error}>
+                {error}
+            </template>
+        </div>
+    </lightning-card>
+</template>
